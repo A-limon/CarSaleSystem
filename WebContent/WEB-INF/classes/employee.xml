@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+<package name="employee" namespace="/employee" extends="default">
+
+	<!-- 员工拦截器 --> 
+	<interceptors>
+    	<interceptor name="employeecheck" class="EmployeeInterceptor"/>
+    	<interceptor-stack name="checkpower">
+    		<interceptor-ref name="checklogin"/>
+    		<interceptor-ref name="employeecheck"/>
+    		<interceptor-ref name="defaultStack"/>
+    	</interceptor-stack>
+   	</interceptors>
+   	<default-interceptor-ref name="checkpower"/>
+   	
+	<!-- 员工列表 -->
+   	<action name="list" class="listEmployeeAction" method="list">
+     	<result name="success">/employee/employee.jsp</result>
+        <result name="input">/employee/employee.jsp</result>
+   	</action>
+   	<!-- 增加员工 --> 
+   	<action name="add" class="addEmployeeAction" method="add">
+     	<result name="success" type="redirect">/employee/list.action</result>
+        <result name="input">/employee/add.jsp</result>
+   	</action>
+   	<!-- 修改员工 -->
+   	<action name="edit" class="editEmployeeAction" method="edit">
+     	<result name="success">/employee/edit.jsp</result>
+        <result name="input" type="redirect">/employee/list.action</result>
+   	</action>
+   	<!-- 保存修改员工 -->
+   	<action name="editsave" class="editSaveEmployeeAction" method="editsave">
+     	<result name="success" type="redirect">/employee/list.action</result>
+        <result name="input">/employee/edit.jsp</result>
+   	</action>
+   	<!-- 删除员工 -->
+   	<action name="delete" class="deleteEmployeeAction" method="delete">
+     	<result name="success" type="redirect" >/employee/list.action</result>
+        <result name="input" type="redirect">/employee/list.action</result>
+   	</action>
+   	<!-- 搜索员工 -->
+   	<action name="search" class="searchEmployeeAction" method="search">
+     	<result name="success" >/employee/search.jsp</result>
+        <result name="input" type="redirect">/employee/list.action</result>
+   	</action>      
+   	<!-- 检测用户名是否存在 -->
+   	<action name="check" class="checkEmployeeAction" method="CheckUserName">	
+   	</action>      
+        
+  
+  
+</package>
+</struts>

@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2013-6-20 22:54:03 by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="com.bmw.sale.value.Client" table="client" catalog="carsell">
+        <id name="clientid" type="java.lang.Integer">
+            <column name="clientid" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="sell" class="com.bmw.sale.value.Sell" fetch="select" lazy="false">
+            <column name="engineid" unique="true" />
+        </many-to-one>
+        <property name="clientname" type="string">
+            <column name="clientname" length="8" not-null="true" />
+        </property>
+        <property name="clientsex" type="string">
+            <column name="clientsex" length="4" not-null="true" />
+        </property>
+        <property name="clientage" type="int">
+            <column name="clientage" not-null="true" />
+        </property>
+        <property name="clientphone" type="string">
+            <column name="clientphone" length="11" not-null="true" />
+        </property>
+        <property name="clientmail" type="string">
+            <column name="clientmail" length="40" not-null="true" />
+        </property>
+        <set name="services" table="service" inverse="true" lazy="false" fetch="select">
+            <key>
+                <column name="clientid" />
+            </key>
+            <one-to-many class="com.bmw.sale.value.Service" />
+        </set>
+    </class>
+</hibernate-mapping>

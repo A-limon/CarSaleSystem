@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+<package name="client" namespace="/client" extends="default">
+
+	<!--客户列表--> 
+   	<action name="list" class="listClientAction" method="list">
+     	<result name="success">/client/client.jsp</result>
+        <result name="input">/client/client.jsp</result>
+   	</action> 
+   	     
+   <!-- 增加客户-->
+   <action name="add" class="addClientAction" method="add">
+     	<result name="success" type="redirect">/client/list.action</result>
+        <result name="input">/client/add.jsp</result>
+   </action>     
+   
+   <!-- 修改客户 --> 
+   <action name="edit" class="editClientAction" method="edit">
+     	<result name="success">/client/edit.jsp</result>
+        <result name="input" type="redirect">/client/list.action</result>
+   </action>
+   
+   <!-- 保存修改客户 -->       
+   <action name="editsave" class="editSaveClientAction" method="editsave">
+     	<result name="success" type="redirect">/client/list.action</result>
+        <result name="input">/client/edit.jsp</result>
+   </action>      
+   
+   <!-- 删除客户 -->
+   <action name="delete" class="deleteClientAction" method="delete">
+     	<result name="success" type="redirect" >/client/list.action</result>
+        <result name="input" type="redirect">/client/list.action</result>
+   </action>      
+    
+   <!-- 检测发动机号是否存在 -->
+   <action name="check" class="addClientAction" method="check">	
+   </action>      
+   
+      
+</package>
+</struts>

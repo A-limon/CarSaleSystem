@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" 
+	"http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<constant name="struts.objectFactory" value="spring" />
+	<constant name="struts.devMode" value="false"></constant>
+	<constant name="struts.i18n.reload" value="true"/>
+    <constant name="struts.i18n.encoding" value="utf-8"/>
+    <constant name="struts.i18n.resources" value="message"/>
+    <constant name="struts.locale" value="UTF-8 "/>
+    <constant name="struts.ui.theme" value="simple"/>
+    <constant name="struts.multipart.saveDir" value="/upload"/>
+    
+	<package name="default" namespace="/" extends="struts-default">
+	
+		<!-- 默认登录拦截器 --> 
+    	<interceptors>
+    		<interceptor name="checklogin" class="LoginInterceptor"/>
+    		<interceptor-stack name="check">
+    			<interceptor-ref name="checklogin"/>
+    			<interceptor-ref name="defaultStack"/>
+    		</interceptor-stack>
+    	</interceptors>
+    	<default-interceptor-ref name="check"/>
+    	
+    	<!-- 当所请求的Action不存在或找不到时，会默认调用指定的Action -->
+        <default-action-ref name="index" />
+        
+        <!-- 全局结果 --> 
+        <global-results>  
+            <result name="login" type="redirect">/index/login.jsp</result>
+            <result name="noPower" type="redirect">/index/info.jsp</result>
+            <result name="error" type="redirect">/index/error.jsp</result>  
+        </global-results>
+         
+  		<!--全局异常 -->
+  		
+        <global-exception-mappings>
+            <exception-mapping exception="java.lang.Exception" result="error"/>
+            <exception-mapping exception="java.io.Exception" result="error"/>
+            <exception-mapping exception="java.sql.Exception" result="error"/>
+        </global-exception-mappings>
+        
+         
+        <!-- 登录 -->  
+        <action name="login" class="LoginAction" method="login">
+            <result name="success" type="redirect">/index/index.jsp</result>
+            <result name="input" type="redirect">/index/login.jsp</result>
+        </action>
+        
+        <!-- 注销 --> 
+        <action name="logout" class="LogoutAction" method="logout">
+            <result name="success">/index/login.jsp</result>
+            <result name="input">/index/login.jsp</result>
+        </action>
+                      
+    </package>
+    <include file="employee.xml"/>
+    <include file="car.xml"/>
+    <include file="sell.xml"/>
+    <include file="client.xml"/>
+    <include file="service.xml"/>
+</struts>    

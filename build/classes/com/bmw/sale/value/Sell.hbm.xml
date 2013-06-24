@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2013-6-20 22:54:03 by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="com.bmw.sale.value.Sell" table="sell" catalog="carsell">
+        <id name="engineid" type="int">
+            <column name="engineid" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="car" class="com.bmw.sale.value.Car" fetch="select" lazy="false">
+            <column name="carid" />
+        </many-to-one>
+        <many-to-one name="employee" class="com.bmw.sale.value.Employee" fetch="select" lazy="false">
+            <column name="userid" />
+        </many-to-one>
+        <property name="selldate" type="date">
+            <column name="selldate" length="10" not-null="true" />
+        </property>
+        <set name="clients" table="client" inverse="true" lazy="false" fetch="select">
+            <key>
+                <column name="engineid" unique="true" />
+            </key>
+            <one-to-many class="com.bmw.sale.value.Client" />
+        </set>
+    </class>
+</hibernate-mapping>

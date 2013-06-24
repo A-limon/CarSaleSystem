@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2013-6-20 22:54:03 by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="com.bmw.sale.value.Car" table="car" catalog="carsell">
+        <id name="carid" type="java.lang.Integer">
+            <column name="carid" />
+            <generator class="identity" />
+        </id>
+        <property name="carpic" type="string">
+            <column name="carpic" length="100" />
+        </property>
+        <property name="carname" type="string">
+            <column name="carname" length="80" not-null="true" unique="true" />
+        </property>
+        <property name="price" type="float">
+            <column name="price" precision="12" scale="0" not-null="true" />
+        </property>
+        <property name="color" type="string">
+            <column name="color" length="15" not-null="true" />
+        </property>
+        <property name="engine" type="string">
+            <column name="engine" length="20" not-null="true" />
+        </property>
+        <property name="stock" type="java.lang.Integer">
+            <column name="stock" />
+        </property>
+        <set name="sells" table="sell" inverse="true" lazy="false" fetch="select">
+            <key>
+                <column name="carid" />
+            </key>
+            <one-to-many class="com.bmw.sale.value.Sell" />
+        </set>
+    </class>
+</hibernate-mapping>

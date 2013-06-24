@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2013-6-20 22:54:03 by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="com.bmw.sale.value.Employee" table="employee" catalog="carsell">
+        <id name="userid" type="java.lang.Integer">
+            <column name="userid" />
+            <generator class="identity" />
+        </id>
+        <property name="username" type="string">
+            <column name="username" length="8" not-null="true" />
+        </property>
+        <property name="password" type="string">
+            <column name="password" length="16" not-null="true" />
+        </property>
+        <property name="sex" type="string">
+            <column name="sex" length="8" not-null="true" />
+        </property>
+        <property name="age" type="java.lang.Byte">
+            <column name="age" />
+        </property>
+        <property name="loginname" type="string">
+            <column name="loginname" length="16" not-null="true" unique="true" />
+        </property>
+        <property name="department" type="string">
+            <column name="department" length="8" not-null="true" />
+        </property>
+        <set name="sells" table="sell" inverse="true" lazy="false" fetch="select">
+            <key>
+                <column name="userid" />
+            </key>
+            <one-to-many class="com.bmw.sale.value.Sell" />
+        </set>
+    </class>
+</hibernate-mapping>

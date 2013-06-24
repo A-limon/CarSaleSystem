@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:tx="http://www.springframework.org/schema/tx"
+xmlns:aop="http://www.springframework.org/schema/aop"
+xmlns:context="http://www.springframework.org/schema/context"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/aop
+http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-3.0.xsd
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+	<!--Spring管理DataSource  --> 
+	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean" >
+     <property name="jndiName">
+        <value>java:comp/env/carsell</value>
+     </property>
+	</bean>
+	
+	<!--Spring管理sessionFactory  --> 
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="show_sql">true</prop>
+			</props>
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>com/bmw/sale/value/Employee.hbm.xml</value>
+				<value>com/bmw/sale/value/Car.hbm.xml</value>
+				<value>com/bmw/sale/value/Client.hbm.xml</value>
+				<value>com/bmw/sale/value/Sell.hbm.xml</value>
+				<value>com/bmw/sale/value/Service.hbm.xml</value>
+			</list>
+		</property>
+	</bean>
+	<!-- Spring管理Struts Action --> 
+	
+	<!-- employee模块 -->
+	<bean id="listEmployeeAction" class="com.bmw.sale.action.EmployeeListAction" >
+		<property name="employeeImpl" ref="employeeImpl"></property>
+	</bean>
+	<bean id="checkEmployeeAction" class="com.bmw.sale.action.EmployeeAddAction" >
+		<property name="employeeImpl" ref="employeeImpl"></property>
+	</bean>
+	<bean id="addEmployeeAction" class="com.bmw.sale.action.EmployeeAddAction" >
+		<property name="employeeImpl" ref="employeeImpl"></property>
+	</bean>
+	<bean id="editEmployeeAction" class="com.bmw.sale.action.EmployeeEditAction" >
+		<property name="employeeImpl" ref="employeeImpl"></property>
+	</bean>
+	<bean id="editSaveEmployeeAction" class="com.bmw.sale.action.EmployeeEditSaveAction" >
+		<property name="employeeImpl" ref="employeeImpl"></property>
+	</bean>
+	<bean id="deleteEmployeeAction" class="com.bmw.sale.action.EmployeeDeleteAction" >
+		<property name="employeeImpl" ref="employeeImpl"></property>
+	</bean>
+	<bean id="searchEmployeeAction" class="com.bmw.sale.action.EmployeeSearchAction" >
+		<property name="employeeImpl" ref="employeeImpl"></property>
+	</bean>
+	<bean id="employeeImpl" class="com.bmw.sale.business.EmployeeImpl">
+		<property name="dao" ref="dao"></property>
+	</bean>
+	<bean id="dao" class="com.bmw.sale.dao.BaseDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<!-- car模块 -->
+	<bean id="listCarAction" class="com.bmw.sale.action.CarListAction" >
+		<property name="carImpl" ref="carImpl"></property>
+	</bean>
+	<bean id="addCarAction" class="com.bmw.sale.action.CarAddAction" >
+		<property name="carImpl" ref="carImpl"></property>
+	</bean>
+	<bean id="editCarAction" class="com.bmw.sale.action.CarEditAction" >
+		<property name="carImpl" ref="carImpl"></property>
+	</bean>
+	<bean id="editSaveCarAction" class="com.bmw.sale.action.CarEditSaveAction" >
+		<property name="carImpl" ref="carImpl"></property>
+	</bean>
+	<bean id="deleteCarAction" class="com.bmw.sale.action.CarDeleteAction" >
+		<property name="carImpl" ref="carImpl"></property>
+	</bean>
+	<bean id="carImpl" class="com.bmw.sale.business.CarImpl">
+		<property name="dao" ref="dao"></property>
+	</bean>
+	
+	<!-- sell模块 -->
+	<bean id="listSellAction" class="com.bmw.sale.action.SellListAction" >
+		<property name="sellImpl" ref="sellImpl"></property>
+	</bean>
+	<bean id="addSellAction" class="com.bmw.sale.action.SellAddAction" >
+		<property name="sellImpl" ref="sellImpl"></property>
+	</bean>
+	<bean id="deleteSellAction" class="com.bmw.sale.action.SellDeleteAction" >
+		<property name="sellImpl" ref="sellImpl"></property>
+	</bean>
+	<bean id="sellImpl" class="com.bmw.sale.business.SellImpl">
+		<property name="dao" ref="dao"></property>
+	</bean>
+	
+	<!-- client模块 -->
+	<bean id="listClientAction" class="com.bmw.sale.action.ClientListAction" >
+		<property name="clientImpl" ref="clientImpl"></property>
+	</bean>
+	<bean id="addClientAction" class="com.bmw.sale.action.ClientAddAction" >
+		<property name="clientImpl" ref="clientImpl"></property>
+	</bean>
+	<bean id="editClientAction" class="com.bmw.sale.action.ClientEditAction" >
+		<property name="clientImpl" ref="clientImpl"></property>
+	</bean>
+	<bean id="editSaveClientAction" class="com.bmw.sale.action.ClientEditSaveAction" >
+		<property name="clientImpl" ref="clientImpl"></property>
+	</bean>
+	<bean id="deleteClientAction" class="com.bmw.sale.action.ClientDeleteAction" >
+		<property name="clientImpl" ref="clientImpl"></property>
+	</bean>
+	<bean id="clientImpl" class="com.bmw.sale.business.ClientImpl">
+		<property name="dao" ref="dao"></property>
+	</bean>
+	
+	<!-- service模块 -->
+	<bean id="listServiceAction" class="com.bmw.sale.action.ServiceListAction" >
+		<property name="serviceImpl" ref="serviceImpl"></property>
+	</bean>
+	<bean id="addServiceAction" class="com.bmw.sale.action.ServiceAddAction" >
+		<property name="serviceImpl" ref="serviceImpl"></property>
+	</bean>
+	<bean id="editServiceAction" class="com.bmw.sale.action.ServiceEditAction" >
+		<property name="serviceImpl" ref="serviceImpl"></property>
+	</bean>
+	<bean id="editSaveServiceAction" class="com.bmw.sale.action.ServiceEditSaveAction" >
+		<property name="serviceImpl" ref="serviceImpl"></property>
+	</bean>
+	<bean id="serviceImpl" class="com.bmw.sale.business.ServiceImpl">
+		<property name="dao" ref="dao"></property>
+	</bean>
+	
+	<!-- 登录 --> 
+	<bean id="LoginAction" class="com.bmw.sale.action.LoginAction" >
+		<property name="employeeImpl" ref="employeeImpl"></property>
+	</bean>
+	
+	<!-- 注销 --> 
+	<bean id="LogoutAction" class="com.bmw.sale.action.LogoutAction" ></bean>
+	
+	<!-- 登录拦截器 --> 
+	<bean id="LoginInterceptor" class="com.bmw.sale.filter.LoginInterceptor" ></bean>
+	
+	<!-- employee拦截器 --> 
+	<bean id="EmployeeInterceptor" class="com.bmw.sale.filter.EmployeeInterceptor" ></bean>
+	
+	<!-- car拦截器 --> 
+	<bean id="CarInterceptor" class="com.bmw.sale.filter.CarInterceptor" ></bean>
+		
+	<!-- 声明式事务 -->
+	
+	<!-- 配置事务管理器 -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	<!--  配置事务传播特性 -->	
+	<tx:advice id="txAdvice">
+		<tx:attributes>
+			<tx:method name="*"  rollback-for="Exception"/>
+			<tx:method name="add*" propagation="REQUIRED"/>
+			<tx:method name="modify*" propagation="REQUIRED"/>
+	      	<tx:method name="delete*" propagation="REQUIRED"/> 
+		</tx:attributes>
+	</tx:advice>
+	<!--  配置参与事务的类 -->
+	<aop:config>
+		<aop:pointcut id="allServiceMethod" expression="execution(* com.bmw.sale.business.*.*(..))"/>
+		<aop:advisor pointcut-ref="allServiceMethod" advice-ref="txAdvice" />
+	</aop:config> 
+	
+
+
+</beans>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+<package name="car" namespace="/car" extends="default">
+
+	<!--车型拦截器--> 
+	<interceptors>
+    	<interceptor name="carcheck" class="CarInterceptor"/>
+    	<interceptor-stack name="car">
+    		<interceptor-ref name="checklogin"/>
+    		<interceptor-ref name="carcheck"/>
+    		<interceptor-ref name="defaultStack"/>
+    	</interceptor-stack>
+   	</interceptors>
+   	<default-interceptor-ref name="car"/>
+   	
+	<!--车型列表--> 
+   	<action name="list" class="listCarAction" method="list">
+     	<result name="success">/car/car.jsp</result>
+        <result name="input">/car/car.jsp</result>
+   	</action>      
+   <!-- 增加车型-->
+   <action name="add" class="addCarAction" method="add">
+	   	<interceptor-ref name="fileUpload">
+	   		<param name="allowedTypes">image/jpeg</param>
+	   		<param name="maximumSize">90000000</param>
+	   	</interceptor-ref>
+	   	<interceptor-ref name="defaultStack"/>
+     	<result name="success" type="redirect">/car/list.action</result>
+        <result name="input">/car/add.jsp</result>
+   </action> 
+       
+   <!-- 修改车型 --> 
+   <action name="edit" class="editCarAction" method="edit">
+     	<result name="success">/car/edit.jsp</result>
+        <result name="input" type="redirect">/car/list.action</result>
+   </action> 
+        
+   <!-- 保存修改车型 -->
+   <action name="editsave" class="editSaveCarAction" method="editsave">
+     	<result name="success" type="redirect">/car/list.action</result>
+        <result name="input">/car/edit.jsp</result>
+   </action> 
+        
+   <!-- 删除车型 --> 
+   <action name="delete" class="deleteCarAction" method="delete">
+     	<result name="success" type="redirect" >/car/list.action</result>
+        <result name="input" type="redirect">/car/list.action</result>
+   </action>      
+         
+</package>
+</struts>

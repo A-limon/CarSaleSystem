@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2013-6-20 22:54:03 by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="com.bmw.sale.value.Service" table="service" catalog="carsell">
+        <id name="serid" type="java.lang.Integer">
+            <column name="serid" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="client" class="com.bmw.sale.value.Client" fetch="select" lazy="false">
+            <column name="clientid" />
+        </many-to-one>
+        <property name="serdate" type="date">
+            <column name="serdate" length="10" not-null="true" />
+        </property>
+        <property name="serstate" type="string">
+            <column name="serstate" length="5" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

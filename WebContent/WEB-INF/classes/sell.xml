@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+<package name="sell" namespace="/sell" extends="default">
+
+	<!--订单列表 -->
+   	<action name="list" class="listSellAction" method="list">
+     	<result name="success">/sell/sell.jsp</result>
+        <result name="input">/sell/sell.jsp</result>
+   	</action>
+   	
+   	<!-- 增加订单-->
+   	<action name="add" class="addSellAction" method="add">
+     	<result name="success" type="redirect">/sell/list.action</result>
+        <result name="input">/sell/add.jsp</result>
+   	</action>
+   	
+   	<!-- 检测发动机号是否存在 -->
+   	<action name="checkengineid" class="addSellAction" method="checkengineid">	
+  	 </action>
+   	
+   	<!-- 检测销售人员id是否存在 -->
+   	<action name="checkuserid" class="addSellAction" method="checkuserid">	
+   	</action>
+   	
+   	<!-- 检测车型号是否存在 -->  
+   	<action name="checkcarid" class="addSellAction" method="checkcarid">	
+   	</action>
+   	
+   	<!-- 删除订单 -->
+   	<action name="delete" class="deleteSellAction" method="delete">
+     	<result name="success" type="redirect" >/sell/list.action</result>
+        <result name="input" type="redirect">/sell/list.action</result>
+   	</action>      
+          
+</package>
+</struts>
