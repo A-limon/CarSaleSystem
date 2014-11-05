@@ -21,8 +21,5 @@ Username:admin,Password:admin
 #### Database Connection Pool Configurations 数据连接池配置
 Using the `context.xml` in the `META-INF` directory.
 
-<<<<<<< HEAD
+
 使用`META-INF`录中的 `context.xml`配置
-=======
-使用`META-INF`录中的 `context.xml`配置
->>>>>>> 44ad35ae1753cee72186dfeaa18d524757db9951
